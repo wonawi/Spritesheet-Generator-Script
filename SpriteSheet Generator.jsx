@@ -218,8 +218,22 @@ savePngBtn.onClick = function() {
         pngSaveOptions.compression = 0; // 0-9, 0 = none, 9 = maximum
         pngSaveOptions.interlaced = false;
         
-        // Show save dialog
-        var saveFile = File.saveDialog(_("saveSpritesheet"), "PNG:*.png");
+        // Get original document name and path
+        var originalName = doc.name;
+        var originalPath = doc.path;
+        
+        // Remove file extension from original name if present
+        var baseName = originalName.replace(/\.[^\.]+$/, '');
+        
+        // Create default filename with _spritesheet.png suffix
+        var defaultName = baseName + "_spritesheet.png";
+        
+        // Create a file object with the default path and name
+        var defaultFile = new File(originalPath + "/" + defaultName);
+        
+        // Show save dialog with default path and filename
+        var saveFile = defaultFile.saveDlg(_("saveSpritesheet"), "PNG:*.png");
+        
         if (saveFile) {
             // Add .png extension if not present
             if (!saveFile.name.match(/\.png$/i)) {
@@ -438,6 +452,13 @@ function generateSpritesheetDocument(layoutValue) {
     var frameWidth = doc.width.as('px');
     var frameHeight = doc.height.as('px');
     
+    // Get original document name and create spritesheet name
+    var originalName = doc.name;
+    // Remove file extension from original name if present
+    var baseName = originalName.replace(/\.[^\.]+$/, '');
+    // Create default document name with _spritesheet suffix
+    var docName = baseName + "_spritesheet";
+    
     if (groupsToRowsRadio.value) {
         if (!framesByGroup || framesByGroup.length === 0) {
             alert(_("noValidGroups"));
@@ -451,7 +472,7 @@ function generateSpritesheetDocument(layoutValue) {
             frameWidth * cols, 
             frameHeight * rows, 
             doc.resolution, 
-            "Spritesheet", 
+            docName, 
             NewDocumentMode.RGB, 
             DocumentFill.TRANSPARENT
         );
@@ -495,7 +516,7 @@ function generateSpritesheetDocument(layoutValue) {
             frameWidth * cols, 
             frameHeight * rows, 
             doc.resolution, 
-            "Spritesheet", 
+            docName, 
             NewDocumentMode.RGB, 
             DocumentFill.TRANSPARENT
         );
