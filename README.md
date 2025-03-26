@@ -1,6 +1,6 @@
 # Spritesheet Generator for Adobe Photoshop
 
-A script for Adobe Photoshop that creates spritesheets from visible layers or groups in your document. Supports English, Russian, and Polish languages.
+A script for Adobe Photoshop that creates spritesheets from visible layers or groups in your document.
 
 ## Overview
 
@@ -57,4 +57,3 @@ The preview panel shows you information about the spritesheet that will be gener
 - The original document remains unchanged
 - The script uses the current document's dimensions for each frame in the spritesheet
 - Only visible layers are included in the spritesheet
-- The script automatically detects Photoshop's language setting and displays the UI in English, Russian, or Polish
